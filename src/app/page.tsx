@@ -8,25 +8,17 @@ export default function Home() {
   return (
     <AppLayout>
       <main className="min-h-screen">
-        {/* Hero Section - Full width */}
-        <section className="mb-16">
-          <HeroSection />
-        </section>
+        {/* Hero Section - Full width for maximum impact */}
+        <HeroSection />
 
-        {/* Categories Section */}
-        <section className="mb-16">
-          <CategoriesSection />
-        </section>
+        {/* Categories Section with gradient background */}
+        <CategoriesSection />
 
         {/* Featured Restaurants Section */}
-        <section className="mb-16">
-          <FeaturedRestaurants />
-        </section>
+        <FeaturedRestaurants />
 
         {/* Popular Dishes Section */}
-        <section className="mb-16">
-          <PopularDishes />
-        </section>
+        <PopularDishes />
       </main>
     </AppLayout>
   );

@@ -1,12 +1,21 @@
 "use client";
 
 import { Button, Input, Typography, Card } from "antd";
-import { SearchOutlined, ClockCircleOutlined, StarOutlined, FireOutlined, TruckOutlined } from "@ant-design/icons";
+import { SearchOutlined, ClockCircleOutlined, StarOutlined, FireOutlined, TruckOutlined, UserOutlined } from "@ant-design/icons";
+import Link from "next/link";
+import { useAuth } from "@/contexts/AuthContext";
 
 const { Title, Paragraph, Text } = Typography;
 const { Search } = Input;
 
 export function HeroSection() {
+  // Always call hooks at the top level - follows Rules of Hooks
+  const auth = useAuth();
+
+  // Safely access context values
+  const isAuthenticated = auth?.isAuthenticated || false;
+  const logout = auth?.logout || (() => {});
+
   const handleSearch = (value: string) => {
     console.log("Searching for:", value);
     // TODO: Implement search functionality
@@ -14,6 +23,32 @@ export function HeroSection() {
 
   return (
     <div className="relative min-h-screen bg-gradient-to-br from-purple-900 via-orange-600 to-red-500 overflow-hidden">
+      {/* Login/Logout Buttons */}
+      <div className="absolute top-6 right-6 z-20">
+        {isAuthenticated ? (
+          <Button
+            type="primary"
+            icon={<UserOutlined />}
+            size="large"
+            onClick={logout}
+            className="bg-white/10 hover:bg-white/20 border-white/30 text-white backdrop-blur-sm"
+          >
+            Logout
+          </Button>
+        ) : (
+          <Link href="/auth">
+            <Button
+              type="primary"
+              icon={<UserOutlined />}
+              size="large"
+              className="bg-white/10 hover:bg-white/20 border-white/30 text-white backdrop-blur-sm"
+            >
+              Login
+            </Button>
+          </Link>
+        )}
+      </div>
+
       {/* Animated Background Elements - Reduced animations */}
       <div className="absolute inset-0 opacity-20">
         {/* Large gradient orbs - removed animate-pulse */}

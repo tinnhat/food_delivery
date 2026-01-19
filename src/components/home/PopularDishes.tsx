@@ -2,9 +2,9 @@
 
 import { Card, Typography, Button } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
-import Image from "next/image";
 import { useState } from "react";
 import { mockFoodItems } from "@/data/mockData";
+import { FoodImage } from "@/components/ui/FoodImage";
 
 const { Title, Text } = Typography;
 
@@ -48,12 +48,10 @@ export function PopularDishes() {
               hoverable
               className="overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-105 border-0 rounded-3xl relative group bg-white"
               cover={
-                <div className="relative h-56 overflow-hidden rounded-t-3xl">
-                  <Image
-                    src={item.image}
-                    alt={item.name}
-                    fill
-                    className="object-cover group-hover:scale-110 transition-transform duration-700"
+                <div className="relative h-56 overflow-hidden rounded-t-3xl group">
+                  <FoodImage
+                    foodItem={item}
+                    className="group-hover:scale-110 transition-transform duration-700"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
 

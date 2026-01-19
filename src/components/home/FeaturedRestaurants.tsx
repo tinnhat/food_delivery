@@ -1,14 +1,48 @@
 "use client";
 
-import { Card, Typography, Tag, Button } from "antd";
+import { Card, Typography, Tag, Button, Spin } from "antd";
 import { ClockCircleOutlined } from "@ant-design/icons";
 import Image from "next/image";
 import Link from "next/link";
-import { mockRestaurants } from "@/data/mockData";
+import { useEffect, useState } from "react";
+import { Restaurant } from "@/types";
+import { mockRestaurantService } from "@/lib/mockApi";
 
 const { Title, Text } = Typography;
 
 export function FeaturedRestaurants() {
+  const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+  const fetchRestaurants = async () => {
+    try {
+      setLoading(true);
+      const response = await mockRestaurantService.getRestaurants({ $limit: 6 });
+      setRestaurants(response.data);
+    } catch (error: any) {
+      console.error('Failed to fetch restaurants:', error);
+      setRestaurants([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+    fetchRestaurants();
+  }, []);
+
+  if (loading) {
+    return (
+      <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-center py-12">
+            <Spin size="large" />
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="py-16 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -33,7 +67,7 @@ export function FeaturedRestaurants() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {mockRestaurants.slice(0, 6).map((restaurant, index) => (
+          {restaurants.slice(0, 6).map((restaurant: Restaurant, index: number) => (
             <Card
               key={restaurant.id}
               hoverable
@@ -41,7 +75,7 @@ export function FeaturedRestaurants() {
               cover={
                 <div className="relative h-64 overflow-hidden">
                   <Image
-                    src={restaurant.image}
+                    src={restaurant.image || "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400"}
                     alt={restaurant.name}
                     fill
                     className="object-cover group-hover:scale-110 transition-transform duration-700"
@@ -134,7 +168,7 @@ export function FeaturedRestaurants() {
 
                 {/* Cuisine Tags */}
                 <div className="flex flex-wrap gap-2">
-                  {restaurant.cuisine.map((cuisine) => (
+                  {(restaurant.cuisine || []).map((cuisine: string) => (
                     <Tag
                       key={cuisine}
                       className="bg-gradient-to-r from-orange-100 to-red-100 text-orange-800 border-orange-300 px-3 py-1 rounded-full text-sm font-semibold shadow-sm hover:shadow-md transition-all duration-300"

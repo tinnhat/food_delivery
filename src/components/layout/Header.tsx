@@ -1,6 +1,6 @@
 'use client'
 
-import { Layout, Button, Badge, Input } from 'antd'
+import { Layout, Button, Badge, Input, Dropdown, Avatar, Menu } from 'antd'
 import {
   ShoppingCartOutlined,
   UserOutlined,
@@ -8,15 +8,33 @@ import {
   SearchOutlined,
   HeartOutlined,
   PhoneOutlined,
+  LogoutOutlined,
+  SettingOutlined,
+  ShopOutlined,
+  HistoryOutlined,
+  UnorderedListOutlined,
 } from '@ant-design/icons'
 import Link from 'next/link'
 import { useState } from 'react'
+import { useAuth } from '@/contexts/AuthContext'
+import { useCart } from '@/contexts/CartContext'
 
 const { Header: AntHeader } = Layout
 const { Search } = Input
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+
+  // Always call hooks at the top level - follows Rules of Hooks
+  const auth = useAuth();
+  const cart = useCart();
+
+  // Safely access context values
+  const user = auth?.user || null;
+  const isAuthenticated = auth?.isAuthenticated || false;
+  const isOwner = auth?.isOwner || false;
+  const logout = auth?.logout || (() => {});
+  const cartItemCount = cart?.itemCount || 0;
 
   return (
     <>
@@ -71,13 +89,35 @@ export function Header() {
                   <span className='absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-emerald-500 to-teal-500 group-hover:w-full transition-all duration-300'></span>
                 </Link>
 
-                <Link
-                  href='/categories'
-                  className='relative text-gray-700 hover:text-emerald-600 font-semibold transition-all duration-300 group py-2'
-                >
-                  Categories
-                  <span className='absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-emerald-500 to-teal-500 group-hover:w-full transition-all duration-300'></span>
-                </Link>
+                {isAuthenticated && (
+                  <Link
+                    href='/orders'
+                    className='relative text-gray-700 hover:text-emerald-600 font-semibold transition-all duration-300 group py-2'
+                  >
+                    My Orders
+                    <span className='absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-emerald-500 to-teal-500 group-hover:w-full transition-all duration-300'></span>
+                  </Link>
+                )}
+
+                {isOwner && (
+                  <Link
+                    href='/restaurant/dashboard'
+                    className='relative text-gray-700 hover:text-emerald-600 font-semibold transition-all duration-300 group py-2'
+                  >
+                    Restaurant
+                    <span className='absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-emerald-500 to-teal-500 group-hover:w-full transition-all duration-300'></span>
+                  </Link>
+                )}
+
+                {isOwner && (
+                  <Link
+                    href='/admin'
+                    className='relative text-gray-700 hover:text-emerald-600 font-semibold transition-all duration-300 group py-2'
+                  >
+                    Admin
+                    <span className='absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-emerald-500 to-teal-500 group-hover:w-full transition-all duration-300'></span>
+                  </Link>
+                )}
               </nav>
 
               {/* Modern Search Bar */}
@@ -96,41 +136,90 @@ export function Header() {
             {/* Desktop User Actions */}
             <div className='hidden lg:flex items-center space-x-4'>
               {/* Quick Actions */}
-              <div className='flex items-center space-x-2'>
-                <Button
-                  type='text'
-                  icon={<HeartOutlined className='text-lg text-red-500!' />}
-                  size='large'
-                  className='text-gray-600 hover:text-red-500 hover:bg-red-50 rounded-xl transition-all duration-300'
-                  title='Favorites'
-                />
-              </div>
-
-              {/* User Account */}
-              <Button
-                type='text'
-                icon={<UserOutlined className='text-lg text-white!' />}
-                size='large'
-                className='text-gray-700 hover:text-emerald-600 hover:bg-emerald-50 rounded-xl transition-all duration-300 border border-gray-200 hover:border-emerald-300'
-              >
-                <span className='hidden xl:inline ml-2 font-medium text-white'>Sign In</span>
-              </Button>
-
-              {/* Modern Cart Button */}
-              <div className='relative group'>
-                <Badge count={3} size='small' offset={[-2, 2]}>
+              {isAuthenticated && (
+                <div className='flex items-center space-x-2'>
                   <Button
-                    type='primary'
-                    icon={<ShoppingCartOutlined className='text-lg' />}
+                    type='text'
+                    icon={<HeartOutlined className='text-lg' />}
                     size='large'
-                    className='bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 border-none rounded-xl shadow-lg hover:shadow-emerald-500/30 transition-all duration-300 transform hover:scale-105'
+                    className='text-gray-600 hover:text-red-500 hover:bg-red-50 rounded-xl transition-all duration-300'
+                    title='Favorites'
+                  />
+                </div>
+              )}
+
+              {/* Authentication Section */}
+              {isAuthenticated ? (
+                <Dropdown
+                  menu={{
+                    items: [
+                      {
+                        key: 'profile',
+                        icon: <UserOutlined />,
+                        label: <Link href="/profile">Profile</Link>,
+                      },
+                      {
+                        key: 'orders',
+                        icon: <HistoryOutlined />,
+                        label: <Link href="/orders">My Orders</Link>,
+                      },
+                      ...(isOwner ? [{
+                        key: 'restaurant',
+                        icon: <ShopOutlined />,
+                        label: <Link href="/restaurant/dashboard">My Restaurant</Link>,
+                      }] : []),
+                      {
+                        type: 'divider' as const,
+                      },
+                      {
+                        key: 'logout',
+                        icon: <LogoutOutlined />,
+                        label: 'Sign Out',
+                        onClick: logout,
+                      },
+                    ],
+                  }}
+                  placement="bottomRight"
+                  arrow
+                >
+                  <Button
+                    type='text'
+                    className='flex items-center space-x-2 text-white hover:text-emerald-600 hover:bg-emerald-50 rounded-xl transition-all duration-300 border border-gray-200 hover:border-emerald-300'
                   >
-                    <span className='hidden xl:inline ml-2 font-bold'>$24.99</span>
+                    <Avatar size="small" icon={<UserOutlined />} />
+                    <span className='hidden xl:inline font-medium'>{user?.email}</span>
                   </Button>
-                </Badge>
-                {/* Subtle pulse effect */}
-                <div className='absolute inset-0 bg-gradient-to-r from-emerald-500/20 to-teal-500/20 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10'></div>
-              </div>
+                </Dropdown>
+              ) : (
+                <Link href="/auth">
+                  <Button
+                    type='text'
+                    icon={<UserOutlined className='text-lg' />}
+                    size='large'
+                    className='text-white hover:text-emerald-600 hover:bg-emerald-50 rounded-xl transition-all duration-300 border border-gray-200 hover:border-emerald-300'
+                  >
+                    <span className='hidden xl:inline ml-2 font-medium'>Sign In</span>
+                  </Button>
+                </Link>
+              )}
+
+              {/* Cart Button */}
+              <Link href='/cart'>
+                <div className='relative group'>
+                  <Badge count={cartItemCount} size='small' offset={[-2, 2]}>
+                    <Button
+                      type='primary'
+                      icon={<ShoppingCartOutlined className='text-lg' />}
+                      size='large'
+                      className='bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 border-none rounded-xl shadow-lg hover:shadow-emerald-500/30 transition-all duration-300 transform hover:scale-105'
+                    >
+                      <span className='hidden xl:inline ml-2 font-bold'>Cart</span>
+                    </Button>
+                  </Badge>
+                  {/* Subtle pulse effect */}
+                  <div className='absolute inset-0 bg-gradient-to-r from-emerald-500/20 to-teal-500/20 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10'></div>
+                </div>
+              </Link>
             </div>
 
             {/* Mobile Actions */}

@@ -27,7 +27,7 @@ export function Footer() {
             <Title level={5} className="text-white mb-4">
               Quick Links
             </Title>
-            <Space direction="vertical" className="text-gray-300">
+            <Space orientation="vertical" className="text-gray-300">
               <Text className="text-gray-300 hover:text-white cursor-pointer">About Us</Text>
               <Text className="text-gray-300 hover:text-white cursor-pointer">Contact</Text>
               <Text className="text-gray-300 hover:text-white cursor-pointer">Privacy Policy</Text>
@@ -39,7 +39,7 @@ export function Footer() {
             <Title level={5} className="text-white mb-4">
               Contact Info
             </Title>
-            <Space direction="vertical" className="text-gray-300">
+            <Space orientation="vertical" className="text-gray-300">
               <div className="flex items-center">
                 <PhoneOutlined className="mr-2" />
                 <Text className="text-gray-300">+1 (555) 123-4567</Text>

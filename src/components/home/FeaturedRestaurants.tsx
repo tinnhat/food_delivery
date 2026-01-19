@@ -1,7 +1,7 @@
 "use client";
 
 import { Card, Typography, Tag, Button } from "antd";
-import { ClockCircleOutlined, DollarOutlined } from "@ant-design/icons";
+import { ClockCircleOutlined } from "@ant-design/icons";
 import Image from "next/image";
 import Link from "next/link";
 import { mockRestaurants } from "@/data/mockData";
@@ -45,6 +45,9 @@ export function FeaturedRestaurants() {
                     alt={restaurant.name}
                     fill
                     className="object-cover group-hover:scale-110 transition-transform duration-700"
+                    onError={(e) => {
+                      e.currentTarget.src = '/placeholder-restaurant.jpg'; // Fallback image
+                    }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
 

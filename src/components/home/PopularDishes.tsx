@@ -1,6 +1,6 @@
 "use client";
 
-import { Card, Typography, Button, Tag } from "antd";
+import { Card, Typography, Button } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 import Image from "next/image";
 import { useState } from "react";

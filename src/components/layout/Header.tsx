@@ -57,7 +57,7 @@ export function Header() {
               <nav className='flex items-center space-x-6'>
                 <Link
                   href='/'
-                  className='relative text-white! hover:text-emerald-600 font-semibold transition-all duration-300 group py-2'
+                  className='relative text-gray-700 hover:text-emerald-600 font-semibold transition-all duration-300 group py-2'
                 >
                   Home
                   <span className='absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-emerald-500 to-teal-500 group-hover:w-full transition-all duration-300'></span>
@@ -65,7 +65,7 @@ export function Header() {
 
                 <Link
                   href='/restaurants'
-                  className='relative text-white! hover:text-emerald-600 font-semibold transition-all duration-300 group py-2'
+                  className='relative text-gray-700 hover:text-emerald-600 font-semibold transition-all duration-300 group py-2'
                 >
                   Restaurants
                   <span className='absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-emerald-500 to-teal-500 group-hover:w-full transition-all duration-300'></span>
@@ -73,7 +73,7 @@ export function Header() {
 
                 <Link
                   href='/categories'
-                  className='relative text-white! hover:text-emerald-600 font-semibold transition-all duration-300 group py-2'
+                  className='relative text-gray-700 hover:text-emerald-600 font-semibold transition-all duration-300 group py-2'
                 >
                   Categories
                   <span className='absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-emerald-500 to-teal-500 group-hover:w-full transition-all duration-300'></span>
@@ -99,29 +99,21 @@ export function Header() {
               <div className='flex items-center space-x-2'>
                 <Button
                   type='text'
-                  icon={<HeartOutlined className='text-lg' />}
+                  icon={<HeartOutlined className='text-lg text-red-500!' />}
                   size='large'
                   className='text-gray-600 hover:text-red-500 hover:bg-red-50 rounded-xl transition-all duration-300'
                   title='Favorites'
-                />
-
-                <Button
-                  type='text'
-                  icon={<PhoneOutlined className='text-lg' />}
-                  size='large'
-                  className='text-gray-600 hover:text-blue-500 hover:bg-blue-50 rounded-xl transition-all duration-300'
-                  title='Support'
                 />
               </div>
 
               {/* User Account */}
               <Button
                 type='text'
-                icon={<UserOutlined className='text-lg' />}
+                icon={<UserOutlined className='text-lg text-white!' />}
                 size='large'
                 className='text-gray-700 hover:text-emerald-600 hover:bg-emerald-50 rounded-xl transition-all duration-300 border border-gray-200 hover:border-emerald-300'
               >
-                <span className='hidden xl:inline ml-2 font-medium'>Sign In</span>
+                <span className='hidden xl:inline ml-2 font-medium text-white'>Sign In</span>
               </Button>
 
               {/* Modern Cart Button */}

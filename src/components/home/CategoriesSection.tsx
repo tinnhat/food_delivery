@@ -126,7 +126,7 @@ export function CategoriesSection() {
 
               {/* Popular Badge */}
               {category.popular && (
-                <div className="absolute -top-2 -right-2 bg-gradient-to-r from-orange-400 to-red-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg animate-pulse">
+                <div className="absolute top-2 right-2 bg-gradient-to-r from-orange-400 to-red-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg animate-pulse">
                   🔥 Popular
                 </div>
               )}
@@ -140,7 +140,7 @@ export function CategoriesSection() {
             <div className="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-6">
               <div className="text-center md:text-left">
                 <h3 className="text-2xl font-bold text-gray-900 mb-2">
-                  Can't find what you're looking for?
+                  Can&apos;t find what you&apos;re looking for?
                 </h3>
                 <p className="text-gray-600">
                   Explore our complete restaurant directory with advanced filters

@@ -1,7 +1,7 @@
 "use client";
 
-import { Button, Input, Typography, Card, Statistic, Space } from "antd";
-import { SearchOutlined, ClockCircleOutlined, ShopOutlined, UserOutlined, StarOutlined, FireOutlined, TruckOutlined } from "@ant-design/icons";
+import { Button, Input, Typography, Card } from "antd";
+import { SearchOutlined, ClockCircleOutlined, StarOutlined, FireOutlined, TruckOutlined } from "@ant-design/icons";
 
 const { Title, Paragraph, Text } = Typography;
 const { Search } = Input;
@@ -14,31 +14,31 @@ export function HeroSection() {
 
   return (
     <div className="relative min-h-screen bg-gradient-to-br from-purple-900 via-orange-600 to-red-500 overflow-hidden">
-      {/* Animated Background Elements */}
+      {/* Animated Background Elements - Reduced animations */}
       <div className="absolute inset-0 opacity-20">
-        {/* Large gradient orbs */}
-        <div className="absolute -top-40 -left-40 w-96 h-96 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full mix-blend-multiply filter blur-xl animate-pulse"></div>
-        <div className="absolute -bottom-40 -right-40 w-96 h-96 bg-gradient-to-br from-pink-400 to-purple-500 rounded-full mix-blend-multiply filter blur-xl animate-pulse delay-1000"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-gradient-to-br from-orange-400 to-red-500 rounded-full mix-blend-multiply filter blur-xl animate-pulse delay-500"></div>
+        {/* Large gradient orbs - removed animate-pulse */}
+        <div className="absolute -top-40 -left-40 w-96 h-96 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full mix-blend-multiply filter blur-xl"></div>
+        <div className="absolute -bottom-40 -right-40 w-96 h-96 bg-gradient-to-br from-pink-400 to-purple-500 rounded-full mix-blend-multiply filter blur-xl"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-gradient-to-br from-orange-400 to-red-500 rounded-full mix-blend-multiply filter blur-xl"></div>
       </div>
 
-      {/* Floating Food Elements */}
+      {/* Floating Food Elements - Reduced animations */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-20 left-10 text-6xl animate-bounce delay-100 opacity-30">🍕</div>
-        <div className="absolute top-32 right-16 text-5xl animate-bounce delay-300 opacity-25">🍔</div>
-        <div className="absolute bottom-32 left-20 text-4xl animate-bounce delay-700 opacity-20">🥗</div>
-        <div className="absolute bottom-20 right-12 text-5xl animate-bounce delay-500 opacity-30">🍜</div>
-        <div className="absolute top-1/3 left-1/4 text-4xl animate-bounce delay-900 opacity-25">🌮</div>
-        <div className="absolute bottom-1/3 right-1/3 text-3xl animate-bounce delay-1200 opacity-20">🍣</div>
-        <div className="absolute top-2/3 left-1/6 text-4xl animate-bounce delay-1500 opacity-25">🥪</div>
+        <div className="absolute top-20 left-10 text-6xl opacity-30">🍕</div>
+        <div className="absolute top-32 right-16 text-5xl opacity-25">🍔</div>
+        <div className="absolute bottom-32 left-20 text-4xl opacity-20">🥗</div>
+        <div className="absolute bottom-20 right-12 text-5xl opacity-30">🍜</div>
+        <div className="absolute top-1/3 left-1/4 text-4xl opacity-25">🌮</div>
+        <div className="absolute bottom-1/3 right-1/3 text-3xl opacity-20">🍣</div>
+        <div className="absolute top-2/3 left-1/6 text-4xl opacity-25">🥪</div>
       </div>
 
-      {/* Geometric Shapes */}
+      {/* Geometric Shapes - Static */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-16 left-1/4 w-2 h-2 bg-white rounded-full animate-ping delay-100"></div>
-        <div className="absolute top-24 right-1/3 w-1 h-1 bg-orange-300 rounded-full animate-ping delay-300"></div>
-        <div className="absolute bottom-20 left-1/3 w-3 h-3 bg-yellow-300 rounded-full animate-ping delay-500"></div>
-        <div className="absolute bottom-16 right-1/4 w-2 h-2 bg-pink-300 rounded-full animate-ping delay-700"></div>
+        <div className="absolute top-16 left-1/4 w-2 h-2 bg-white rounded-full"></div>
+        <div className="absolute top-24 right-1/3 w-1 h-1 bg-orange-300 rounded-full"></div>
+        <div className="absolute bottom-20 left-1/3 w-3 h-3 bg-yellow-300 rounded-full"></div>
+        <div className="absolute bottom-16 right-1/4 w-2 h-2 bg-pink-300 rounded-full"></div>
       </div>
 
       {/* Main Content */}
@@ -182,10 +182,10 @@ export function HeroSection() {
         </div>
       </div>
 
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+      {/* Scroll Indicator - Static */}
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
         <div className="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center">
-          <div className="w-1 h-3 bg-white/70 rounded-full mt-2 animate-pulse"></div>
+          <div className="w-1 h-3 bg-white/70 rounded-full mt-2"></div>
         </div>
       </div>
     </div>

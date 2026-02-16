@@ -38,8 +38,8 @@ export function Header() {
 
   return (
     <>
-      {/* Modern Glassmorphism Header */}
-      <AntHeader className='bg-white/90 backdrop-blur-xl border-b border-gray-200/50 px-4 md:px-6 sticky top-0 z-50 shadow-lg w-full h-20!'>
+      {/* Modern Light Header */}
+      <AntHeader className='bg-white border-b border-gray-100 px-4 md:px-6 sticky top-0 z-50 shadow-sm w-full h-20!'>
         <div className='max-w-7xl mx-auto'>
           <div className='flex items-center justify-between h-20 min-h-[5rem]'>
             {/* Modern Logo & Brand */}
